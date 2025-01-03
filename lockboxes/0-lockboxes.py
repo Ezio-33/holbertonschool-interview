@@ -25,7 +25,7 @@ def canUnlockAll(boxes):
         return False
 
     opened = [False] * n
-    opened[0] = True  
+    opened[0] = True
     keys = [0]
 
     while keys:
