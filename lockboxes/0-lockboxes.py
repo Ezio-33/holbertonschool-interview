@@ -6,8 +6,7 @@ Contient une fonction pour déterminer si toutes les boîtes
 peuvent être déverrouillées en partant de la première boîte.
 """
 
-
-def can_unlock_all(boxes):
+def canUnlockAll(boxes):
     """
     Détermine si toutes les boîtes peuvent être déverrouillées
     en partant de la première boîte.
@@ -18,12 +17,12 @@ def can_unlock_all(boxes):
 
     Returns:
         bool: Vrai si toutes les boîtes peuvent être déverrouillées,
-        Faux sinon.
+              Faux sinon.
     """
     n = len(boxes)
     opened = [False] * n
-    opened[0] = True
-    keys = [0]
+    opened[0] = True  # La première boîte est toujours ouverte
+    keys = [0]        # Liste des boîtes dont on possède une clé
 
     while keys:
         current_key = keys.pop()
