@@ -1,15 +1,24 @@
-#!/usr/bin/python3
-def canUnlockAll(boxes):
+#!/usr/bin/env python3
+"""
+Module 0-lockboxes.
+
+Contient une fonction pour déterminer si toutes les boîtes
+peuvent être déverrouillées en partant de la première boîte.
+"""
+
+
+def can_unlock_all(boxes):
     """
     Détermine si toutes les boîtes peuvent être déverrouillées
-     en partant de la première boîte.
+    en partant de la première boîte.
 
     Args:
         boxes (List[List[int]]): Une liste de boîtes, où
-          chaque boîte contient une liste de clés.
+                                 chaque boîte contient une liste de clés.
 
     Returns:
-        bool: Vrai si toutes les boîtes peuvent être déverrouillées, Faux sinon.
+        bool: Vrai si toutes les boîtes peuvent être déverrouillées,
+        Faux sinon.
     """
     n = len(boxes)
     opened = [False] * n
@@ -19,7 +28,7 @@ def canUnlockAll(boxes):
     while keys:
         current_key = keys.pop()
         for key in boxes[current_key]:
-            if key < n and not opened[key]:
+            if 0 <= key < n and not opened[key]:
                 opened[key] = True
                 keys.append(key)
 
