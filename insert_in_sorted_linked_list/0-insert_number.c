@@ -3,8 +3,8 @@
 
 /**
  * insert_node - Insère un nombre dans une liste chaînée triée
- * @head: Pointeur vers le pointeur de la tête de la liste
- * @number: Nombre à insérer
+ * head: Pointeur vers le pointeur de la tête de la liste
+ * number: Nombre à insérer
  * Return: Adresse du nouveau nœud ou NULL si échec
  */
 listint_t *insert_node(listint_t **head, int number)
