@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
+
 """
 Script qui lit des logs depuis l'entrée standard (stdin)
 et affiche des statistiques :
@@ -8,27 +8,29 @@ et affiche des statistiques :
 Les statistiques sont affichées toutes les 10 lignes ou
 lors d'une interruption clavier (CTRL+C).
 """
+
 import sys
 
-taille_fichier = 0
-codes_statut = {"200": 0, "301": 0, "400": 0, "401": 0,
+
+file_size = 0
+status_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
                 "403": 0, "404": 0, "405": 0, "500": 0}
 
 try:
-    for i, ligne in enumerate(sys.stdin, 1):
-        splited = ligne.split(" ")
+    for i, line in enumerate(sys.stdin, 1):
+        splited = line.split(" ")
         if len(splited) < 2:
             continue
-        if splited[-2] in codes_statut:
-            codes_statut[splited[-2]] += 1
-        taille_fichier += eval(splited[-1])
+        if splited[-2] in status_codes:
+            status_codes[splited[-2]] += 1
+        file_size += eval(splited[-1])
         if i % 10 == 0:
-            print("Taille du fichier: {}".format(taille_fichier))
-            for cle, valeur in sorted(codes_statut.items()):
-                if valeur > 0:
-                    print("{}: {}".format(cle, valeur))
+            print("File size: {}".format(file_size))
+            for key, value in sorted(status_codes.items()):
+                if value > 0:
+                    print("{}: {}".format(key, value))
 finally:
-    print("Taille du fichier: {}".format(taille_fichier))
-    for cle, valeur in sorted(codes_statut.items()):
-        if valeur > 0:
-            print("{}: {}".format(cle, valeur))
+    print("File size: {}".format(file_size))
+    for key, value in sorted(status_codes.items()):
+        if value > 0:
+            print("{}: {}".format(key, value))
