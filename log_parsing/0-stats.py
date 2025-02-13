@@ -10,8 +10,15 @@ import sys
 
 # Variables globales
 file_size = 0  # Somme totale des tailles de fichiers
-status_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
-                "403": 0, "404": 0, "405": 0, "500": 0}  # Compteur par code HTTP
+status_codes = {
+    "200": 0,
+    "301": 0,
+    "400": 0,
+    "401": 0,
+    "403": 0,
+    "404": 0,
+    "405": 0,
+    "500": 0}  # Compteur par code HTTP
 
 try:
     # Lecture ligne par ligne depuis stdin
