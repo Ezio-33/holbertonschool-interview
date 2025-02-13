@@ -1,9 +1,6 @@
 #!/usr/bin/python3
-
-"""
-Script qui lit des logs depuis stdin et affiche des statistiques toutes
+"""Script qui lit des logs depuis stdin et affiche des statistiques toutes
 les 10 lignes ou lors d'une interruption clavier (CTRL+C).
-
 """
 
 import sys
