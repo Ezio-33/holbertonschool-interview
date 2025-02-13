@@ -29,20 +29,20 @@ try:
     for i, line in enumerate(
             sys.stdin, 1):  # i est le numéro de ligne (commence à 1)
         # Divise la ligne en parties séparées par des espaces
-        splited = line.split(" ")
+        split = line.split(" ")
 
         # Validation basique : vérifier que la ligne a au moins deux éléments
-        if len(splited) < 2:
+        if len(split) < 2:
             continue
 
         # Mise à jour du compteur pour le code HTTP si valide
-        if splited[-2] in status_codes:  # Avant-dernier élément : code HTTP
-            status_codes[splited[-2]] += 1
+        if split[-2] in status_codes:  # Avant-dernier élément : code HTTP
+            status_codes[split[-2]] += 1
 
         # Mise à jour de la taille totale
         try:
             # Dernier élément : taille du fichier
-            file_size += int(splited[-1])
+            file_size += int(split[-1])
         except ValueError:
             continue  # Ignore les lignes où la taille n'est
             # pas un entier valide
