@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """
-Module pour valider si un ensemble de données représente un encodage UTF-8 valide.
+Module pour valider si un ensemble de données représente
+un encodage UTF-8 valide.
 """
+
 
 def validUTF8(data):
     """
