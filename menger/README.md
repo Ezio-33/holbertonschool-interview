@@ -1,18 +1,18 @@
 <div id="top">
 
-<!-- HEADER STYLE: CLASSIC -->
+<!-- STYLE D'EN-TÊTE : CLASSIQUE -->
 <div align="center">
 
-<img src="readmeai/assets/logos/purple.svg" width="30%" style="position: relative; top: 0; right: 0;" alt="Project Logo"/>
+<img src="readmeai/assets/logos/purple.svg" width="30%" style="position: relative; top: 0; right: 0;" alt="Logo du Projet"/>
 
 # MENGER
 
-<em>Fractals of Efficiency, Simplified</em>
+<em>Des fractales d'efficacité, simplifiées</em>
 
 <!-- BADGES -->
-<!-- local repository, no metadata badges. -->
+<!-- dépôt local, pas de méta-données pour les badges. -->
 
-<em>Built with the tools and technologies:</em>
+<em>Construit avec les outils et technologies :</em>
 
 <img src="https://img.shields.io/badge/C-A8B9CC.svg?style=default&logo=C&logoColor=black" alt="C">
 
@@ -21,62 +21,60 @@
 
 ---
 
-## Table of Contents
+## Table des Matières
 
-- [Table of Contents](#table-of-contents)
-- [Overview](#overview)
-- [Features](#features)
-- [Project Structure](#project-structure)
-  - [Project Index](#project-index)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
+- [Table des Matières](#table-des-matières)
+- [Aperçu](#aperçu)
+- [Fonctionnalités](#fonctionnalités)
+- [Structure du Projet](#structure-du-projet)
+  - [Index du Projet](#index-du-projet)
+- [Prise en main](#prise-en-main)
+  - [Prérequis](#prérequis)
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [Testing](#testing)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+  - [Utilisation](#utilisation)
+  - [Tests](#tests)
+- [Feuille de route](#feuille-de-route)
+- [Contribuer](#contribuer)
 
 ---
 
-## Overview
+## Aperçu
 
 ---
 
-## Features
+## Fonctionnalités
 
-| Component        | Details                                                                                                                                                                            |
-| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Architecture** | _Menger Cube Algorithm Implemented_                                                                                                                                                |
-| 🔩               | _Code Quality_: <ul><li>Follows Holberton C Coding Standards</li></ul>                                                                                                             |
-| 📄               | _Documentation_: <ul><li>Includes comments in English and French</li><li>Uses Doxygen-style documentation for API</li></ul>                                                        |
-| 🔌               | _Integrations_: <ul><li>Dependent on `c` compiler for compilation</li><li>Utilizes `h` header files for standard library functions</li></ul>                                       |
-| 🧩               | _Modularity_: <ul><li>Separates logic into distinct functions and modules</li><li>Uses a modular design pattern to organize code</li></ul>                                         |
-| 🧪               | _Testing_: <ul><li>Includes unit tests for individual functions using `check_win` function</li><li>Utilizes `assert` statements for error checking</li></ul>                       |
-| ⚡️              | _Performance_: <ul><li>Optimized for performance using iterative algorithms</li><li>Minimizes unnecessary computations and memory allocations</li></ul>                            |
-| 🛡️               | _Security_: <ul><li>Validates user input to prevent buffer overflow attacks</li><li>Uses secure practices for data storage and transmission</li></ul>                              |
-| 📦               | _Dependencies_: <ul><li>Dependent on `c` compiler for compilation</li><li>Utilizes standard library functions from `h` header files</li></ul>                                      |
-| 🚀               | _Scalability_: <ul><li>Designed to handle large inputs and complex computations</li><li>Uses efficient data structures and algorithms to minimize computational overhead</li></ul> |
+| Composant        | Détails                                                                                                                                                                                                              |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Architecture** | _Algorithme du Cube de Menger implémenté_                                                                                                                                                                            |
+| 🔩               | _Qualité du code_: <ul><li>Respecte les standards de codage Holberton en C</li></ul>                                                                                                                                 |
+| 📄               | _Documentation_: <ul><li>Contient des commentaires en anglais et en français</li><li>Utilise une documentation de style Doxygen pour l'API</li></ul>                                                                 |
+| 🔌               | _Intégrations_: <ul><li>Dépend du compilateur `c` pour la compilation</li><li>Utilise des fichiers d'en-tête `h` pour les fonctions de la librairie standard</li></ul>                                               |
+| 🧩               | _Modularité_: <ul><li>Sépare la logique en fonctions et modules distincts</li><li>Utilise un design pattern modulaire pour organiser le code</li></ul>                                                               |
+| 🧪               | _Tests_: <ul><li>Inclut des tests unitaires pour chaque fonction avec la fonction `check_win`</li><li>Utilise des assertions pour la vérification des erreurs</li></ul>                                              |
+| ⚡️              | _Performance_: <ul><li>Optimisé pour la performance grâce à des algorithmes itératifs</li><li>Minimise les calculs inutiles ainsi que les allocations mémoire superflues</li></ul>                                   |
+| 🛡️               | _Sécurité_: <ul><li>Valide les entrées utilisateur pour prévenir les dépassements de tampon</li><li>Utilise des pratiques sécurisées pour le stockage et la transmission des données</li></ul>                       |
+| 📦               | _Dépendances_: <ul><li>Dépend du compilateur `c` pour la compilation</li><li>Utilise les fonctions de la librairie standard via les fichiers d'en-tête `h`</li></ul>                                                 |
+| 🚀               | _Scalabilité_: <ul><li>Conçu pour gérer des entrées volumineuses et des calculs complexes</li><li>Utilise des structures de données et des algorithmes efficaces pour minimiser la charge computationnelle</li></ul> |
 
 ---
 
-## Project Structure
+## Structure du Projet
 
 ```sh
 └── menger/
-    ├── 0-main.c
-    ├── 0-menger
-    ├── 0-menger.c
-    ├── README.md
-    └── menger.h
+		├── 0-main.c
+		├── 0-menger
+		├── 0-menger.c
+		├── README.md
+		└── menger.h
 ```
 
-### Project Index
+### Index du Projet
 
 <details open>
 	<summary><b><code>MENGER/</code></b></summary>
-	<!-- __root__ Submodule -->
+	<!-- Module __root__ -->
 	<details>
 		<summary><b>__root__</b></summary>
 		<blockquote>
@@ -85,25 +83,25 @@
 			<table style='width: 100%; border-collapse: collapse;'>
 			<thead>
 				<tr style='background-color: #f8f9fa;'>
-					<th style='width: 30%; text-align: left; padding: 8px;'>File Name</th>
-					<th style='text-align: left; padding: 8px;'>Summary</th>
+					<th style='width: 30%; text-align: left; padding: 8px;'>Nom du fichier</th>
+					<th style='text-align: left; padding: 8px;'>Résumé</th>
 				</tr>
 			</thead>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/root/Projets_holberton/holbertonschool-interview/menger/blob/master/0-main.c'>0-main.c</a></b></td>
-					<td style='padding: 8px;'>- Generates Menger Sponge StructureThe <code>0-main.c</code> file serves as the entry point for generating a Menger sponge structure based on user-provided input<br>- It validates command-line arguments and passes them to the <code>menger</code> function, which constructs the desired level of the Menger sponge<br>- The resulting structure is then printed or further processed by other components of the codebase.</td>
+					<td style='padding: 8px;'>- Génère la structure de l'éponge de Menger<br>- Le fichier <code>0-main.c</code> sert de point d'entrée pour générer une structure d'éponge de Menger basée sur l'entrée utilisateur<br>- Il valide les arguments de la ligne de commande et les transmet à la fonction <code>menger</code>, qui construit le niveau souhaité de l'éponge<br>- La structure résultante est ensuite affichée ou traitée par d'autres composants du code.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/root/Projets_holberton/holbertonschool-interview/menger/blob/master/menger.h'>menger.h</a></b></td>
-					<td style='padding: 8px;'>- Dessine une éponge de Menger en 2D with varying levels of complexity<br>- The menger function generates a fractal pattern, recursively carving out shapes to create the characteristic sponge-like structure<br>- By adjusting the level parameter, users can control the intricacy and detail of the resulting image.</td>
+					<td style='padding: 8px;'>- Dessine une éponge de Menger en 2D avec des niveaux de complexité variés<br>- La fonction menger génère un motif fractal, en découpant récursivement des formes pour créer la structure caractéristique en forme d'éponge<br>- En ajustant le paramètre de niveau, les utilisateurs peuvent contrôler la complexité et le détail de l'image résultante.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/root/Projets_holberton/holbertonschool-interview/menger/blob/master/0-menger.c'>0-menger.c</a></b></td>
-					<td style='padding: 8px;'>- Generates an ASCII representation of the Menger sponge at a specified level of recursion, creating a fractal pattern by subdividing and removing central squares<br>- The <code>menger</code> function recursively divides the square into smaller ones, with the <code>isHole</code> function determining which positions to remove<br>- The resulting pattern is a visually striking representation of the Menger sponges self-similar structure.</td>
+					<td style='padding: 8px;'>- Génère une représentation ASCII de l'éponge de Menger à un niveau de récursion spécifié, créant un motif fractal en subdivisant et en retirant les carrés centraux<br>- La fonction <code>menger</code> divise récursivement le carré en plus petits segments, tandis que la fonction <code>isHole</code> détermine quelles positions doivent être retirées<br>- Le motif résultant offre une représentation visuelle saisissante de la structure auto-similaire de l'éponge de Menger.</td>
 				</tr>
 				<tr style='border-bottom: 1px solid #eee;'>
 					<td style='padding: 8px;'><b><a href='/root/Projets_holberton/holbertonschool-interview/menger/blob/master/0-menger'>0-menger</a></b></td>
-					<td style='padding: 8px;'>Process AutomationEnables the automation of repetitive and time-consuming tasks, allowing for increased efficiency and reduced manual error.<em> <strong>Data IntegrationFacilitates seamless data exchange between disparate systems, ensuring that critical information is accurately captured and utilized.</em> </strong>Scalability and FlexibilityEmploys a modular design, enabling easy integration with new systems and processes as the project evolves.By integrating these capabilities, the code file plays a vital role in streamlining business operations, enhancing productivity, and driving overall project success.</td>
+					<td style='padding: 8px;'>Automatisation de processus<br>Permet d'automatiser des tâches répétitives et chronophages, augmentant ainsi l'efficacité et réduisant les erreurs manuelles.<em> <strong>Intégration de données : Facilite l'échange de données entre systèmes disparates, garantissant que les informations essentielles soient correctement capturées et exploitées.</em> </strong>Scalabilité et flexibilité<br>Adopte un design modulaire, facilitant l'intégration de nouveaux systèmes et processus au fur et à mesure de l'évolution du projet.<br>En intégrant ces fonctionnalités, ce fichier joue un rôle essentiel dans la rationalisation des opérations, l'amélioration de la productivité et le succès global du projet.</td>
 				</tr>
 			</table>
 		</blockquote>
@@ -112,85 +110,85 @@
 
 ---
 
-## Getting Started
+## Prise en main
 
-### Prerequisites
+### Prérequis
 
-This project requires the following dependencies:
+Ce projet nécessite les dépendances suivantes :
 
-- **Programming Language:** C
+- **Langage de programmation :** C
 
 ### Installation
 
-Build menger from the source and intsall dependencies:
+Construisez menger à partir des sources et installez les dépendances :
 
-1. **Clone the repository:**
+1. **Cloner le dépôt :**
 
    ```sh
    ❯ git clone ../menger
    ```
 
-2. **Navigate to the project directory:**
+2. **Se déplacer dans le répertoire du projet :**
 
    ```sh
    ❯ cd menger
    ```
 
-3. **Install the dependencies:**
+3. **Installer les dépendances :**
 
 echo 'INSERT-INSTALL-COMMAND-HERE'
 
-### Usage
+### Utilisation
 
-Run the project with:
+Exécutez le projet avec :
 
 echo 'INSERT-RUN-COMMAND-HERE'
 
-### Testing
+### Tests
 
-Menger uses the {**test_framework**} test framework. Run the test suite with:
+Menger utilise le framework de test {**test_framework**}. Exécutez la suite de tests avec :
 
 echo 'INSERT-TEST-COMMAND-HERE'
 
 ---
 
-## Roadmap
+## Feuille de route
 
-- [x] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
+- [x] **`Tâche 1`** : <strike>Implémenter la fonctionnalité un.</strike>
+- [ ] **`Tâche 2`** : Implémenter la fonctionnalité deux.
+- [ ] **`Tâche 3`** : Implémenter la fonctionnalité trois.
 
 ---
 
-## Contributing
+## Contribuer
 
-- **💬 [Join the Discussions](https://LOCAL/holbertonschool-interview/menger/discussions)**: Share your insights, provide feedback, or ask questions.
-- **🐛 [Report Issues](https://LOCAL/holbertonschool-interview/menger/issues)**: Submit bugs found or log feature requests for the `menger` project.
-- **💡 [Submit Pull Requests](https://LOCAL/holbertonschool-interview/menger/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **💬 [Rejoindre les discussions](https://LOCAL/holbertonschool-interview/menger/discussions)** : Partagez vos idées, donnez votre avis ou posez vos questions.
+- **🐛 [Signaler des problèmes](https://LOCAL/holbertonschool-interview/menger/issues)** : Soumettez des bugs ou formulez des demandes de fonctionnalités pour le projet `menger`.
+- **💡 [Soumettre des Pull Requests](https://LOCAL/holbertonschool-interview/menger/blob/main/CONTRIBUTING.md)** : Consultez les PR en attente et soumettez les vôtres.
 
 <details closed>
-<summary>Contributing Guidelines</summary>
+<summary>Directives de contribution</summary>
 
-1. **Fork the Repository**: Start by forking the project repository to your LOCAL account.
-2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+1. **Fork du dépôt** : Commencez par forker le dépôt du projet sur votre compte LOCAL.
+2. **Cloner localement** : Clonez le dépôt forké sur votre machine à l'aide d'un client git.
    ```sh
    git clone /root/Projets_holberton/holbertonschool-interview/menger
    ```
-3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+3. **Créer une nouvelle branche** : Travaillez toujours sur une nouvelle branche avec un nom descriptif.
    ```sh
-   git checkout -b new-feature-x
+   git checkout -b nouvelle-fonctionnalité-x
    ```
-4. **Make Your Changes**: Develop and test your changes locally.
-5. **Commit Your Changes**: Commit with a clear message describing your updates.
+4. **Apporter vos modifications** : Développez et testez vos modifications en local.
+5. **Valider vos changements** : Effectuez un commit avec un message clair décrivant vos modifications.
    ```sh
-   git commit -m 'Implemented new feature x.'
+   git commit -m 'Implémentation de la nouvelle fonctionnalité x.'
    ```
-6. **Push to LOCAL**: Push the changes to your forked repository.
+6. **Pousser sur LOCAL** : Poussez vos modifications vers votre dépôt forké.
    ```sh
-   git push origin new-feature-x
+   git push origin nouvelle-fonctionnalité-x
    ```
-7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
-8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+7. **Soumettre une Pull Request** : Créez une PR contre le dépôt original. Décrivez clairement les modifications et leur motivation.
+8. **Relecture** : Une fois votre PR relue et approuvée, elle sera fusionnée dans la branche principale. Félicitations pour votre contribution !
 </details>
 
 <div align="right">
@@ -200,5 +198,3 @@ echo 'INSERT-TEST-COMMAND-HERE'
 </div>
 
 [back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square
-
----

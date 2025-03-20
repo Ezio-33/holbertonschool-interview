@@ -1,4 +1,4 @@
-a#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "menger.h"
@@ -40,16 +40,22 @@ void menger(int level)
     if (level < 0)
         return;
 
+    /* Taille totale de l'éponge */
     size = pow(3, level);
 
+    /* Parcours l'ensemble de l'éponge */
     for (i = 0; i < size; i++)
     {
         for (j = 0; j < size; j++)
         {
             if (isHole(i, j))
+            {
                 printf(" ");
+            }
             else
+            {
                 printf("#");
+            }
         }
         printf("\n");
     }
