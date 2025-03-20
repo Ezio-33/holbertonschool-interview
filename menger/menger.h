@@ -1,12 +1,10 @@
-#ifndef MENER_H
-#define MENER_H
+#ifndef MENGER_H
+#define MENGER_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
-/**
- * menger - Dessine une éponge de Menger en 2D
- * @level: Niveau de l'éponge à dessiner
- */
 void menger(int level);
 
-#endif 
+#endif
