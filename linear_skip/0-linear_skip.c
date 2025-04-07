@@ -1,62 +1,54 @@
 #include "search.h"
 
 /**
- * linear_skip - Searches for a value in a sorted skip list of integers.
- * @list: Pointer to the head of the skip list.
- * @value: The value to search for.
- *
- * Return: Pointer to the first node where value is located, or NULL if not found.
+ * linear_skip - Recherche une valeur dans une skip list
+ * @list: Tête de la liste
+ * @value: Valeur à trouver
+ * Return: Nœud trouvé ou NULL
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-    skiplist_t *current, *upper;
+	skiplist_t *current = list, *upper = NULL;
 
-    if (list == NULL)
-        return (NULL);
+	if (!list)
+		return (NULL);
 
-    current = list;
+	/* Traversée de la voie express */
+	while (current->express && current->express->n < value)
+	{
+		printf("Value checked at index [%lu] = [%d]\n",
+			  current->express->index, current->express->n);
+		current = current->express;
+	}
+	upper = current->express;
 
-    /* Traverse the express lane */
-    while (current->express && current->express->n <= value)
-    {
-        printf("Value checked at index [%lu] = [%d]\n", current->express->index, current->express->n);
-        current = current->express;
-    }
-    upper = current->express;
+	/* Gestion de l'affichage de la plage */
+	if (upper)
+	{
+		printf("Value checked at index [%lu] = [%d]\n",
+			  upper->index, upper->n);
+		printf("Value found between indexes [%lu] and [%lu]\n",
+			  current->index, upper->index);
+	}
+	else
+	{
+		skiplist_t *last = current;
 
-    /* Determine the end index for the message */
-    size_t start_idx = current->index;
-    size_t end_idx;
+		while (last->next)
+			last = last->next;
+		printf("Value found between indexes [%lu] and [%lu]\n",
+			  current->index, last->index);
+	}
 
-    if (upper)
-    {
-        end_idx = upper->index;
-    }
-    else
-    {
-        /* Find the last node's index */
-        skiplist_t *tmp = current;
-        while (tmp->next)
-            tmp = tmp->next;
-        end_idx = tmp->index;
-    }
-    printf("Value found between indexes [%lu] and [%lu]\n", start_idx, end_idx);
+	/* Recherche linéaire */
+	while (current != (upper ? upper->next : NULL))
+	{
+		printf("Value checked at index [%lu] = [%d]\n",
+			  current->index, current->n);
+		if (current->n == value)
+			return (current);
+		current = current->next;
+	}
 
-    /* Traverse the normal lane */
-    while (current != upper)
-    {
-        printf("Value checked at index [%lu] = [%d]\n", current->index, current->n);
-        if (current->n == value)
-            return (current);
-        current = current->next;
-    }
-
-    /* Check the upper node if it exists */
-    if (upper && upper->n == value)
-    {
-        printf("Value checked at index [%lu] = [%d]\n", upper->index, upper->n);
-        return (upper);
-    }
-
-    return (NULL);
+	return (NULL);
 }
