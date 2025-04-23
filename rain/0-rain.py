@@ -3,6 +3,7 @@
 Module pour calculer la quantité d'eau de pluie retenue entre les murs.
 """
 
+
 def rain(walls):
     """
     Calcule la quantité d'eau retenue après la pluie entre les murs.
@@ -15,13 +16,13 @@ def rain(walls):
     """
     if not walls:
         return 0
-    
+
     gauche = 0
     droite = len(walls) - 1
     max_gauche = 0
     max_droite = 0
     total = 0
-    
+
     while gauche <= droite:
         if walls[gauche] <= walls[droite]:
             if walls[gauche] >= max_gauche:
@@ -35,5 +36,5 @@ def rain(walls):
             else:
                 total += max_droite - walls[droite]
             droite -= 1
-    
+
     return total
