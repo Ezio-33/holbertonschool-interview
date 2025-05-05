@@ -2,64 +2,72 @@
 #include "search_algos.h"
 
 /**
- * print_array - Affiche le tableau ou sous-tableau
- * @array: le tableau
- * @left: index de début
- * @right: index de fin
+ * print_array - Print the current sub-array being searched
+ * @array: Pointer to the array
+ * @left: Starting index
+ * @right: Ending index
  */
 void print_array(int *array, size_t left, size_t right)
 {
-    printf("Searching in array: ");
-    for (size_t i = left; i <= right; i++)
-    {
-        printf("%d", array[i]);
-        if (i != right)
-            printf(", ");
-    }
-    printf("\n");
+	size_t i;
+
+	printf("Searching in array: ");
+	for (i = left; i <= right; i++)
+	{
+		printf("%d", array[i]);
+		if (i < right)
+			printf(", ");
+	}
+	printf("\n");
 }
 
 /**
- * recursive_search - Fonction récursive qui trouve la première occurrence
- * @array: le tableau
- * @left: index de début
- * @right: index de fin
- * @value: valeur recherchée
- * Return: index ou -1
+ * recursive_search - Recursive function to find the first occurrence
+ * @array: Sorted array
+ * @left: Left index of current search space
+ * @right: Right index of current search space
+ * @value: Target value
+ * Return: Index of the first occurrence or -1
  */
 int recursive_search(int *array, size_t left, size_t right, int value)
 {
-    if (left > right)
-        return -1;
+	size_t mid;
 
-    print_array(array, left, right);
+	if (left > right)
+		return (-1);
 
-    size_t mid = left + (right - left) / 2;
+	print_array(array, left, right);
 
-    if (array[mid] == value)
-    {
-        if (mid == left || array[mid - 1] != value)
-            return mid;
-        return recursive_search(array, left, mid - 1, value);
-    }
+	mid = left + (right - left) / 2;
 
-    if (array[mid] >= value)
-        return recursive_search(array, left, mid - 1, value);
-    else
-        return recursive_search(array, mid + 1, right, value);
+	if (array[mid] == value)
+	{
+		if (mid == left || array[mid - 1] != value)
+			return ((int)mid);
+		else
+			return (recursive_search(array, left, mid - 1, value));
+	}
+	else if (array[mid] > value)
+	{
+		return (recursive_search(array, left, mid - 1, value));
+	}
+	else
+	{
+		return (recursive_search(array, mid + 1, right, value));
+	}
 }
 
 /**
- * advanced_binary - Interface de recherche avancée
- * @array: tableau trié
- * @size: taille du tableau
- * @value: valeur à chercher
- * Return: index ou -1
+ * advanced_binary - Entry point for advanced binary search
+ * @array: Sorted array
+ * @size: Number of elements in the array
+ * @value: Value to search for
+ * Return: Index of first occurrence or -1
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-    if (array == NULL || size == 0)
-        return -1;
+	if (!array || size == 0)
+		return (-1);
 
-    return recursive_search(array, 0, size - 1, value);
+	return (recursive_search(array, 0, size - 1, value));
 }
