@@ -42,8 +42,10 @@ int advanced_binary_rec(int *array, size_t start, size_t end, int value)
 
 	if (array[mid] == value)
 	{
+		/* Si on est au début ou que l'élément précédent est différent, on a trouvé la première occurrence */
 		if (mid == start || array[mid - 1] != value)
 			return ((int)mid);
+		/* Sinon, on continue à chercher à gauche, y compris mid */
 		return (advanced_binary_rec(array, start, mid, value));
 	}
 	else if (array[mid] > value)
