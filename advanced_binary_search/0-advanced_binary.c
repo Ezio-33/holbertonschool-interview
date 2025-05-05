@@ -1,75 +1,72 @@
-#include "search_algos.h"
 #include <stdio.h>
+#include "search_algos.h"
 
 /**
- * print_array - Affiche le sous-tableau en cours de recherche
- * @array: tableau d'entiers
- * @start: indice de début
- * @end: indice de fin
+ * print_array - Affiche la partie actuelle du tableau en cours de recherche
+ * @array: Pointeur vers le tableau
+ * @from: Index de départ
+ * @to: Index de fin
  */
-void print_array(int *array, size_t start, size_t end)
+void print_array(int *array, int from, int to)
 {
-	size_t i;
-
 	printf("Searching in array: ");
-	for (i = start; i <= end; i++)
+	while (from < to)
 	{
-		if (i > start)
-			printf(", ");
-		printf("%d", array[i]);
+		printf("%d, ", array[from]);
+		from++;
 	}
-	printf("\n");
+	printf("%d\n", array[from]);
 }
 
 /**
- * advanced_binary_rec - Recherche binaire récursive pour la première occurrence
- * @array: tableau d'entiers
- * @start: indice de début
- * @end: indice de fin
- * @value: valeur à rechercher
- * Retourne: l'indice de la première occurrence ou -1
+ * recursion_binary - Fonction récursive pour trouver la première occurrence
+ * @array: Tableau trié
+ * @from: Index gauche (début)
+ * @to: Index droit (fin)
+ * @value: Valeur à chercher
+ *
+ * Return: Index de la première occurrence ou -1 si non trouvée
  */
-int advanced_binary_rec(int *array, size_t start, size_t end, int value)
+int recursion_binary(int *array, int from, int to, int value)
 {
-	size_t mid;
+	int mid;
 
-	if (start > end)
+	if (from > to)
 		return (-1);
 
-	print_array(array, start, end);
+	print_array(array, from, to);
 
-	mid = start + (end - start) / 2;
+	mid = from + (to - from) / 2;
 
 	if (array[mid] == value)
 	{
-		/* Si on est au début ou que l'élément précédent est différent, on a trouvé la première occurrence */
-		if (mid == start || array[mid - 1] != value)
-			return ((int)mid);
-		/* Sinon, on continue à chercher à gauche, y compris mid */
-		return (advanced_binary_rec(array, start, mid, value));
+		if (mid == from || array[mid - 1] != value)
+			return (mid);
+		/* Cherche plus à gauche */
+		return (recursion_binary(array, from, mid - 1, value));
 	}
 	else if (array[mid] > value)
 	{
-		if (mid == 0)
-			return (-1);
-		return (advanced_binary_rec(array, start, mid - 1, value));
+		return (recursion_binary(array, from, mid - 1, value));
 	}
 	else
 	{
-		return (advanced_binary_rec(array, mid + 1, end, value));
+		return (recursion_binary(array, mid + 1, to, value));
 	}
 }
 
 /**
- * advanced_binary - Recherche binaire avancée (première occurrence)
- * @array: tableau d'entiers trié
- * @size: taille du tableau
- * @value: valeur à rechercher
- * Retourne: l'indice de la première occurrence ou -1
+ * advanced_binary - Recherche avancée utilisant la récursion
+ * @array: Tableau trié
+ * @size: Taille du tableau
+ * @value: Valeur à chercher
+ *
+ * Return: Index de la première occurrence ou -1 si non trouvée
  */
 int advanced_binary(int *array, size_t size, int value)
 {
 	if (!array || size == 0)
 		return (-1);
-	return (advanced_binary_rec(array, 0, size - 1, value));
+
+	return (recursion_binary(array, 0, size - 1, value));
 }
