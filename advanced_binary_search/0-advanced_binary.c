@@ -1,31 +1,30 @@
-#include <stdio.h>
 #include "search_algos.h"
+#include <stdio.h>
 
 /**
- * print_array - Affiche la partie actuelle du tableau en cours de recherche
- * @array: Pointeur vers le tableau
- * @from: Index de départ
- * @to: Index de fin
+ * print_array - Affiche le sous-tableau actuellement recherché
+ * @array: Le tableau d'entiers
+ * @from: Indice de début
+ * @to: Indice de fin
  */
 void print_array(int *array, int from, int to)
 {
+	int i;
+
 	printf("Searching in array: ");
-	while (from < to)
-	{
-		printf("%d, ", array[from]);
-		from++;
-	}
-	printf("%d\n", array[from]);
+	for (i = from; i < to; i++)
+		printf("%d, ", array[i]);
+	printf("%d\n", array[to]);
 }
 
 /**
- * recursion_binary - Fonction récursive pour trouver la première occurrence
- * @array: Tableau trié
- * @from: Index gauche (début)
- * @to: Index droit (fin)
- * @value: Valeur à chercher
+ * recursion_binary - Recherche binaire récursive pour la première occurrence
+ * @array: Le tableau d'entiers
+ * @from: Indice de début
+ * @to: Indice de fin
+ * @value: Valeur à rechercher
  *
- * Return: Index de la première occurrence ou -1 si non trouvée
+ * Return: L'indice de la première occurrence ou -1 si non trouvé
  */
 int recursion_binary(int *array, int from, int to, int value)
 {
@@ -38,35 +37,30 @@ int recursion_binary(int *array, int from, int to, int value)
 
 	mid = from + (to - from) / 2;
 
-	if (array[mid] == value)
-	{
-		if (mid == from || array[mid - 1] != value)
-			return (mid);
-		/* Cherche plus à gauche */
-		return (recursion_binary(array, from, mid - 1, value));
-	}
-	else if (array[mid] > value)
-	{
-		return (recursion_binary(array, from, mid - 1, value));
-	}
-	else
-	{
-		return (recursion_binary(array, mid + 1, to, value));
-	}
+	/* Si on trouve la valeur et que c'est la première occurrence */
+	if (array[mid] == value && (mid == from || array[mid - 1] != value))
+		return (mid);
+
+	/* Si la valeur du milieu est supérieure ou égale, on cherche à gauche */
+	if (array[mid] >= value)
+		return (recursion_binary(array, from, mid, value));
+
+	/* Sinon, on cherche à droite */
+	return (recursion_binary(array, mid + 1, to, value));
 }
 
 /**
- * advanced_binary - Recherche avancée utilisant la récursion
- * @array: Tableau trié
+ * advanced_binary - Recherche binaire avancée (première occurrence)
+ * @array: Tableau d'entiers trié
  * @size: Taille du tableau
- * @value: Valeur à chercher
+ * @value: Valeur à rechercher
  *
- * Return: Index de la première occurrence ou -1 si non trouvée
+ * Return: L'indice de la première occurrence ou -1 si non trouvé
  */
 int advanced_binary(int *array, size_t size, int value)
 {
 	if (!array || size == 0)
 		return (-1);
 
-	return (recursion_binary(array, 0, size - 1, value));
+	return (recursion_binary(array, 0, (int)size - 1, value));
 }
