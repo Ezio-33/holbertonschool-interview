@@ -1,131 +1,98 @@
 #include "binary_trees.h"
 
 /**
- * heap_extract - Extrait la racine d'un Max Binary Heap.
- * @root: double pointeur vers la racine du tas.
+ * swap - échange les valeurs de deux entiers.
+ * @a: premier entier.
+ * @b: second entier.
+ */
+void swap(int *a, int *b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+/**
+ * heapify - reconstruit le tas binaire max depuis un nœud donné.
+ * @root: pointeur vers le nœud racine actuel.
+ */
+void heapify(heap_t *root)
+{
+	heap_t *largest = root, *left = root->left, *right = root->right;
+
+	if (left && left->n > largest->n)
+		largest = left;
+	if (right && right->n > largest->n)
+		largest = right;
+
+	if (largest != root)
+	{
+		swap(&root->n, &largest->n);
+		heapify(largest);
+	}
+}
+
+/**
+ * get_last_node - trouve le dernier nœud dans l'ordre en largeur.
+ * @root: racine du tas.
  *
- * Return: valeur extraite, 0 en cas d'échec.
+ * Return: pointeur vers le dernier nœud trouvé.
+ */
+heap_t *get_last_node(heap_t *root)
+{
+	heap_t *queue[10000];
+	int front = 0, rear = 0;
+	heap_t *last = NULL;
+
+	queue[rear++] = root;
+	while (front < rear)
+	{
+		last = queue[front++];
+		if (last->left)
+			queue[rear++] = last->left;
+		if (last->right)
+			queue[rear++] = last->right;
+	}
+
+	return (last);
+}
+
+/**
+ * heap_extract - extrait la racine du tas max et reconstruit le tas.
+ * @root: double pointeur vers la racine.
+ *
+ * Return: valeur extraite ou 0 si échec.
  */
 int heap_extract(heap_t **root)
 {
-	int valeur;
-	size_t hauteur, niveau;
-	heap_t *dernier = NULL, *gauche, *droite;
+	int extracted_value;
+	heap_t *last_node, *parent;
 
 	if (!root || !*root)
 		return (0);
 
-	valeur = (*root)->n;
-	gauche = (*root)->left;
-	droite = (*root)->right;
+	extracted_value = (*root)->n;
+	last_node = get_last_node(*root);
 
-	hauteur = binary_tree_height(*root);
-
-	for (niveau = 0; niveau <= hauteur; niveau++)
-		find_replacement(*root, niveau, &dernier);
-
-	free_and_replace(root, &gauche, &droite, &dernier);
-
-	heapify(root, *root);
-
-	return (valeur);
-}
-
-/**
- * binary_tree_height - Mesure la hauteur d'un arbre binaire.
- * @root: pointeur vers la racine de l'arbre.
- *
- * Return: hauteur de l'arbre.
- */
-size_t binary_tree_height(const heap_t *root)
-{
-	if (!root)
-		return (0);
-	return (1 + binary_tree_height(root->left));
-}
-
-/**
- * find_replacement - Trouve le dernier nœud selon un parcours en largeur.
- * @root: pointeur vers le nœud actuel.
- * @level: niveau actuel exploré.
- * @last: double pointeur vers le dernier nœud trouvé.
- */
-void find_replacement(heap_t *root, size_t level, heap_t **last)
-{
-	if (!root)
-		return;
-
-	if (level == 0)
-		*last = root;
-	else
-	{
-		find_replacement(root->left, level - 1, last);
-		find_replacement(root->right, level - 1, last);
-	}
-}
-
-/**
- * free_and_replace - Libère la racine et la remplace par le dernier nœud.
- * @root: double pointeur vers la racine.
- * @left: double pointeur vers l'enfant gauche.
- * @right: double pointeur vers l'enfant droit.
- * @last: double pointeur vers le dernier nœud trouvé.
- */
-void free_and_replace(heap_t **root, heap_t **left,
-					  heap_t **right, heap_t **last)
-{
-	if (*last == *root)
+	if (last_node == *root)
 	{
 		free(*root);
 		*root = NULL;
-		return;
+		return (extracted_value);
 	}
 
-	if ((*last)->parent->left == *last)
-		(*last)->parent->left = NULL;
+	/* Remplacer la racine par la valeur du dernier nœud */
+	(*root)->n = last_node->n;
+
+	/* Mettre à jour le parent du dernier nœud */
+	parent = last_node->parent;
+	if (parent->left == last_node)
+		parent->left = NULL;
 	else
-		(*last)->parent->right = NULL;
+		parent->right = NULL;
 
-	free(*root);
-	*root = *last;
-	(*last)->parent = NULL;
+	free(last_node);
+	heapify(*root);
 
-	if (*left != *last)
-	{
-		(*last)->left = *left;
-		if (*left)
-			(*left)->parent = *last;
-	}
-
-	if (*right != *last)
-	{
-		(*last)->right = *right;
-		if (*right)
-			(*right)->parent = *last;
-	}
-}
-
-/**
- * heapify - Réarrange le tas pour maintenir la propriété Max Heap.
- * @root: double pointeur vers la racine.
- * @current: pointeur vers le nœud courant.
- */
-void heapify(heap_t **root, heap_t *current)
-{
-	heap_t *max = current, *gauche = current->left, *droite = current->right;
-
-	if (gauche && gauche->n > max->n)
-		max = gauche;
-
-	if (droite && droite->n > max->n)
-		max = droite;
-
-	if (current != max)
-	{
-		int tmp = current->n;
-
-		current->n = max->n;
-		max->n = tmp;
-		heapify(root, max);
-	}
+	return (extracted_value);
 }
