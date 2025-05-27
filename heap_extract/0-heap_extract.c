@@ -3,14 +3,14 @@
 /**
  * heap_extract - Extrait la racine d'un Max Binary Heap.
  * @root: double pointeur vers la racine du tas.
+ *
  * Return: valeur extraite, 0 en cas d'échec.
  */
-
 int heap_extract(heap_t **root)
 {
-	int valeur = 0, continuer = 1;
-	size_t hauteur = 0, niveau = 0;
-	heap_t *gauche = NULL, *droite = NULL, *dernier = NULL;
+	int valeur;
+	size_t hauteur, niveau;
+	heap_t *dernier = NULL, *gauche, *droite;
 
 	if (!root || !*root)
 		return (0);
@@ -20,108 +20,112 @@ int heap_extract(heap_t **root)
 	droite = (*root)->right;
 
 	hauteur = binary_tree_height(*root);
+
 	for (niveau = 0; niveau <= hauteur; niveau++)
 		find_replacement(*root, niveau, &dernier);
 
 	free_and_replace(root, &gauche, &droite, &dernier);
 
-	while (dernier && continuer)
-		heapify(root, dernier, &continuer);
+	heapify(root, *root);
 
 	return (valeur);
 }
 
-size_t binary_tree_height(heap_t *root)
+/**
+ * binary_tree_height - Mesure la hauteur d'un arbre binaire.
+ * @root: pointeur vers la racine de l'arbre.
+ *
+ * Return: hauteur de l'arbre.
+ */
+size_t binary_tree_height(const heap_t *root)
 {
 	if (!root)
 		return (0);
 	return (1 + binary_tree_height(root->left));
 }
 
-void find_replacement(heap_t *root, size_t niveau, heap_t **dernier)
+/**
+ * find_replacement - Trouve le dernier nœud selon un parcours en largeur.
+ * @root: pointeur vers le nœud actuel.
+ * @level: niveau actuel exploré.
+ * @last: double pointeur vers le dernier nœud trouvé.
+ */
+void find_replacement(heap_t *root, size_t level, heap_t **last)
 {
 	if (!root)
 		return;
-	if (niveau == 0)
-		(*dernier) = root;
-	find_replacement(root->left, niveau - 1, dernier);
-	find_replacement(root->right, niveau - 1, dernier);
+
+	if (level == 0)
+		*last = root;
+	else
+	{
+		find_replacement(root->left, level - 1, last);
+		find_replacement(root->right, level - 1, last);
+	}
 }
 
-void free_and_replace(heap_t **root, heap_t **gauche,
-					  heap_t **droite, heap_t **dernier)
+/**
+ * free_and_replace - Libère la racine et la remplace par le dernier nœud.
+ * @root: double pointeur vers la racine.
+ * @left: double pointeur vers l'enfant gauche.
+ * @right: double pointeur vers l'enfant droit.
+ * @last: double pointeur vers le dernier nœud trouvé.
+ */
+void free_and_replace(heap_t **root, heap_t **left,
+					  heap_t **right, heap_t **last)
 {
-	if (*dernier == *root)
+	if (*last == *root)
 	{
 		free(*root);
 		*root = NULL;
-		*dernier = NULL;
 		return;
 	}
-	if ((*dernier)->parent->left == (*dernier))
-		(*dernier)->parent->left = NULL;
-	else if ((*dernier)->parent->right == (*dernier))
-		(*dernier)->parent->right = NULL;
 
-	(*dernier)->parent = NULL;
+	if ((*last)->parent->left == *last)
+		(*last)->parent->left = NULL;
+	else
+		(*last)->parent->right = NULL;
+
 	free(*root);
-	*root = *dernier;
+	*root = *last;
+	(*last)->parent = NULL;
 
-	if ((*gauche) != (*dernier))
+	if (*left != *last)
 	{
-		(*dernier)->left = (*gauche);
-		if (*gauche)
-			(*gauche)->parent = (*dernier);
+		(*last)->left = *left;
+		if (*left)
+			(*left)->parent = *last;
 	}
-	if ((*droite) != (*dernier))
+
+	if (*right != *last)
 	{
-		(*dernier)->right = (*droite);
-		if (*droite)
-			(*droite)->parent = (*dernier);
+		(*last)->right = *right;
+		if (*right)
+			(*right)->parent = *last;
 	}
 }
 
-void heapify(heap_t **root, heap_t *actuel, int *continuer)
+/**
+ * heapify - Réarrange le tas pour maintenir la propriété Max Heap.
+ * @root: double pointeur vers la racine.
+ * @current: pointeur vers le nœud courant.
+ */
+void heapify(heap_t **root, heap_t *current)
 {
-	heap_t *max = actuel, *gauche = actuel->left, *droite = actuel->right;
+	heap_t *max = current, *gauche = current->left, *droite = current->right;
 
 	if (gauche && gauche->n > max->n)
 		max = gauche;
+
 	if (droite && droite->n > max->n)
 		max = droite;
-	if (actuel == max)
-	{
-		*continuer = 0;
-		return;
-	}
-	max->parent = actuel->parent;
-	if (!actuel->parent)
-		*root = max;
-	else if (actuel->parent->left == actuel)
-		actuel->parent->left = max;
-	else
-		actuel->parent->right = max;
 
-	actuel->left = max->left;
-	if (max->left)
-		max->left->parent = actuel;
-	actuel->right = max->right;
-	if (max->right)
-		max->right->parent = actuel;
+	if (current != max)
+	{
+		int tmp = current->n;
 
-	if (max == gauche)
-	{
-		max->right = droite;
-		if (droite)
-			droite->parent = max;
-		max->left = actuel;
+		current->n = max->n;
+		max->n = tmp;
+		heapify(root, max);
 	}
-	else
-	{
-		max->left = gauche;
-		if (gauche)
-			gauche->parent = max;
-		max->right = actuel;
-	}
-	actuel->parent = max;
 }
