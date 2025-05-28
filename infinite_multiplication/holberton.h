@@ -2,11 +2,10 @@
 #define HOLBERTON_H
 
 #include <stdlib.h>
+#include <unistd.h>
 
 int _putchar(char c);
-int is_digit(char *str);
-char *calloc_result(int size);
-void print_error(void);
-void print_number(char *num);
+int _isnumber(char *s);
+char *_callocX(unsigned int nmemb);
 
 #endif /* HOLBERTON_H */

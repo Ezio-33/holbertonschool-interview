@@ -1,120 +1,89 @@
 #include "holberton.h"
 
 /**
- * is_digit - vérifie si une chaîne contient uniquement des chiffres
- * @str: chaîne à vérifier
- *
+ * _isnumber - Vérifie si une chaîne contient uniquement des chiffres
+ * @s: chaîne à vérifier
  * Return: 1 si chiffres uniquement, sinon 0
  */
-int is_digit(char *str)
+int _isnumber(char *s)
 {
 	int i;
 
-	for (i = 0; str[i]; i++)
-		if (str[i] < '0' || str[i] > '9')
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] < '0' || s[i] > '9')
 			return (0);
+	}
 	return (1);
 }
 
 /**
- * calloc_result - alloue mémoire initialisée à '0'
- * @size: taille à allouer
- *
+ * _callocX - alloue une chaîne initialisée avec des '0'
+ * @nmemb: nombre d'éléments à allouer
  * Return: pointeur vers la mémoire ou NULL
  */
-char *calloc_result(int size)
+char *_callocX(unsigned int nmemb)
 {
-	char *res;
-	int i;
+	unsigned int i;
+	char *p;
 
-	res = malloc(size + 1);
-	if (!res)
+	p = malloc(nmemb + 1);
+	if (p == NULL)
 		return (NULL);
-	for (i = 0; i < size; i++)
-		res[i] = '0';
-	res[size] = '\0';
-	return (res);
+
+	for (i = 0; i < nmemb; i++)
+		p[i] = '0';
+	p[nmemb] = '\0';
+
+	return (p);
 }
 
 /**
- * multiply - multiplie deux nombres sous forme de chaînes
- * @n1: premier nombre
- * @n2: deuxième nombre
- *
- * Return: résultat sous forme de chaîne
- */
-char *multiply(char *n1, char *n2)
-{
-	int len1, len2, len_res, i, j, mul, sum, carry;
-	char *res;
-
-	for (len1 = 0; n1[len1]; len1++)
-		;
-	for (len2 = 0; n2[len2]; len2++)
-		;
-	len_res = len1 + len2;
-	res = calloc_result(len_res);
-	if (!res)
-		return (NULL);
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			mul = (n1[i] - '0') * (n2[j] - '0');
-			sum = (res[i + j + 1] - '0') + mul + carry;
-			res[i + j + 1] = (sum % 10) + '0';
-			carry = sum / 10;
-		}
-		res[i + j + 1] += carry;
-	}
-	return (res);
-}
-
-/**
- * print_number - affiche une chaîne sans les zéros inutiles
- * @num: nombre à afficher
- */
-void print_number(char *num)
-{
-	int i = 0;
-
-	while (num[i] == '0' && num[i + 1])
-		i++;
-	for (; num[i]; i++)
-		_putchar(num[i]);
-	_putchar('\n');
-}
-
-/**
- * main - multiplie deux grands nombres
+ * main - multiplie deux nombres infinis
  * @argc: nombre d'arguments
- * @argv: tableau d'arguments
- *
- * Return: 0 succès, 98 erreur
+ * @argv: tableau des arguments
+ * Return: toujours 0 ou 98 si erreur
  */
 int main(int argc, char **argv)
 {
+	int i, j, l1, l2, len, mul, add, carry_mul, carry_add, pos, zero = 0;
 	char *res;
 
-	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
+	if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2]))
 	{
-		print_error();
-		exit(98);
+		write(1, "Error\n", 6), exit(98);
 	}
-	if ((argv[1][0] == '0' && !argv[1][1]) ||
-	    (argv[2][0] == '0' && !argv[2][1]))
+	if (argv[1][0] == '0' || argv[2][0] == '0')
 	{
-		_putchar('0'), _putchar('\n');
-		return (0);
+		write(1, "0\n", 2), exit(0);
 	}
-	res = multiply(argv[1], argv[2]);
-	if (!res)
+	for (l1 = 0; argv[1][l1]; l1++)
+		;
+	for (l2 = 0; argv[2][l2]; l2++)
+		;
+	len = l1 + l2;
+	res = _callocX(len);
+	if (res == NULL)
+		write(1, "Error\n", 6), exit(98);
+	for (i = l2 - 1; i >= 0; i--)
 	{
-		print_error();
-		exit(98);
+		carry_mul = 0, carry_add = 0;
+		for (j = l1 - 1; j >= 0; j--)
+		{
+			pos = i + j + 1;
+			mul = (argv[1][j] - '0') * (argv[2][i] - '0') + carry_mul;
+			carry_mul = mul / 10;
+			add = (res[pos] - '0') + (mul % 10) + carry_add;
+			carry_add = add / 10;
+			res[pos] = (add % 10) + '0';
+		}
+		res[pos - 1] = ((res[pos - 1] - '0') + carry_mul + carry_add) + '0';
 	}
-	print_number(res);
+	if (res[0] == '0')
+		zero = 1;
+	for (; zero < len; zero++)
+		_putchar(res[zero]);
+	_putchar('\n');
 	free(res);
 	return (0);
 }
