@@ -4,9 +4,7 @@
 #include <stdlib.h>
 
 int _putchar(char c);
-void print_number(char *str);
-int is_valid_number(char *str);
-char *multiply(char *num1, char *num2);
-int _strlen(char *s);
+int is_digit(char *s);
+char *allocate_result(int size);
 
 #endif /* HOLBERTON_H */
