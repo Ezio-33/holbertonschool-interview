@@ -21,7 +21,7 @@ int get_max(int *array, size_t size)
 }
 
 /**
- * counting_sort_radix - Effectue le tri par comptage pour un chiffre spécifique
+ * counting_sort_radix - Tri par comptage pour un chiffre spécifique
  * @array: Le tableau d'entiers à trier
  * @size: Taille du tableau
  * @exp: L'exposant (1, 10, 100, etc.) pour le chiffre actuel
