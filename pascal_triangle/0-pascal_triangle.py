@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 Module pour générer le triangle de Pascal
 Ce module contient une fonction qui retourne une liste de listes
