@@ -1,11 +1,11 @@
+#ifndef REGEX_H
+#define REGEX_H
+
 /*
  * File: regex.h
  * Desc: Déclarations pour la fonction de correspondance d'expressions
  *       régulières simplifiées (support '.' et '*').
  */
-
-#ifndef REGEX_H
-#define REGEX_H
 
 /**
  * regex_match - Vérifie la correspondance d'une chaîne avec un motif.
